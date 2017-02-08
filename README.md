@@ -1,9 +1,9 @@
 # mars-crimson
-Prácticas motores compatibles MALAB 2016
+Prácticas motores compatibles MATLAB 2016
 
 # Simulink:
 
-  * Opción 1: Usar bloques [SerialReceive](https://es.mathworks.com/help/instrument/serialreceive.html) y [SerialSend](https://es.mathworks.com/help/instrument/serialsend.html) disponibles desde Matlab R2008a en Toolbox `Instrument Control`. **Opción 2:** diseñar código propio en un `.m` aparte (leer abajo motivación).
+  * Opción 1: Usar bloques [SerialReceive](https://es.mathworks.com/help/instrument/serialreceive.html) y [SerialSend](https://es.mathworks.com/help/instrument/serialsend.html) disponibles desde Matlab R2008a en Toolbox `Instrument Control`. **Opción 2:** diseñar código propio en un `.m` aparte (leer abajo motivación). [doc MATLAB](https://es.mathworks.com/videos/incorporating-matlab-algorithms-into-a-simulink-model-69028.html)
   * Tipo de dato para enviar y recibir: diría de usar `int16_t`, escalado en MATLAB al rango `[+5,-5]` para quitarle el trabajo de manejar números flotantes al micro. 
   * Añadir un campo timestamp a cada dato ENVIADO desde el STM32: de esa manera el muestreo tendrá precisión siempre, aunque se formen pequeñas colas al recibir. Es decir, el formato de "trama" enviado desde el STM32 debería ser así: 
 
