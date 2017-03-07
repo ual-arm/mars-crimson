@@ -1,6 +1,10 @@
 # mars-crimson
 Prácticas motores compatibles MATLAB 2016
 
+# STM32: 
+
+  * Programa para microcontrolador: Abrir con Keil el proyecto `firmware/24-STM32F429_USB_VCP/project.uvprojx`
+
 # Simulink:
 
   * Opción 1: Usar bloques [SerialReceive](https://es.mathworks.com/help/instrument/serialreceive.html) y [SerialSend](https://es.mathworks.com/help/instrument/serialsend.html) disponibles desde Matlab R2008a en Toolbox `Instrument Control`. **Opción 2:** diseñar código propio en un `.m` aparte (leer abajo motivación). [doc MATLAB](https://es.mathworks.com/videos/incorporating-matlab-algorithms-into-a-simulink-model-69028.html)
@@ -16,8 +20,5 @@ Prácticas motores compatibles MATLAB 2016
   * Procesar estas tramas se me hace difícil a base de un dibujo de bloques en Simulink, por eso propongo hacerlo en `.m`, al que se acceda desde un bloque simulink.
     
   
-# STM32: 
-
-  * Programa para microcontrolador: ver directorio XXXX
 
 
