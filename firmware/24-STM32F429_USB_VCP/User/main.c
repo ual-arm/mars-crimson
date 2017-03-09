@@ -132,7 +132,7 @@ int main(void)
 		// ADC autosampling mode?
 		if (ADC_autosampling_period_ms>0)
 		{
-			if (TM_Time-ADC_autosampling_last_tim>ADC_autosampling_period_ms)
+			if (TM_Time-ADC_autosampling_last_tim>=ADC_autosampling_period_ms)
 			{
 				ADC_autosampling_last_tim = TM_Time;
 				send_adc_readings();
