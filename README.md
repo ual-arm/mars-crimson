@@ -7,15 +7,17 @@ Prácticas motores compatibles MATLAB 2016
   
   * Frames: uC -> PC
   
-  Type = 0x10: Leer ADCs
-  
+```
+Type = 0x10: Leer ADCs
 				  --------------------------------------------------------------------------------------------------
 	CAMPO:        |   HEADER (=0x69)  |  TYPE (=0x10) |  TIMESTAMP_MILLISECS    |    ADC readings   |   TAIL (0x96 |
 	NUM BYTES:    |       1           |         1     |            4            |   2 * int16_t     |     1        |
 				  --------------------------------------------------------------------------------------------------
+```
   
   * Frames: PC -> uC
   
+```
   Type = 0x00: Cambiar valores de DACs, y enviar de vuelta un frame tipo 0x10 con lecturas ADCs:
   
 				  -------------------------------------------------------------------------
@@ -36,9 +38,9 @@ Prácticas motores compatibles MATLAB 2016
 	CAMPO:        |   HEADER (=0x69)  |  TYPE (=0x02) |  ADC period (ms) |   TAIL (0x96 |
 	NUM BYTES:    |       1           |         1     |       1          |     1        |
 				  -----------------------------------------------------------------------
+```
 
 
-				  
 # Simulink:
 
   * Opción 1: Usar bloques [SerialReceive](https://es.mathworks.com/help/instrument/serialreceive.html) y [SerialSend](https://es.mathworks.com/help/instrument/serialsend.html) disponibles desde Matlab R2008a en Toolbox `Instrument Control`. **Opción 2:** diseñar código propio en un `.m` aparte (leer abajo motivación). [doc MATLAB](https://es.mathworks.com/videos/incorporating-matlab-algorithms-into-a-simulink-model-69028.html)
