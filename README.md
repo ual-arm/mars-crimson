@@ -3,7 +3,9 @@ Prácticas motores compatibles MATLAB 2016
 
 # STM32: 
 
-  * Programa para microcontrolador: Abrir con Keil el proyecto `firmware/24-STM32F429_USB_VCP/project.uvprojx`
+  * Programa para microcontrolador: 
+    * HEX para programar: [project.hex](https://github.com/ual-arm/mars-crimson/blob/master/firmware/24-STM32F429_USB_VCP/Targets/STM32F4_Discovery/project.hex)
+    * Código fuente: Abrir con Keil el proyecto `firmware/24-STM32F429_USB_VCP/project.uvprojx`
   
   * Frames: uC -> PC
   
