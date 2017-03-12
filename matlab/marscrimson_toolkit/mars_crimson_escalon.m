@@ -2,10 +2,11 @@
 placaMotores = MarsCrimson();
 
 % Conecta con la placa física:
-placaMotores.conectar('COM4');
+placaMotores.conectar();
 
-VALOR_ESCALON    = 2.3;  % volts
+VALOR_ESCALON    = 3.3;  % volts
 PERIODO_LECTURA_MS = 1;  % milisecs
+NUMERO_MUESTRAS_A_CAPTURAR = 1000; 
 
 % Generar un escalón:
 % 1) Asegurar que el motor está parado:
@@ -22,7 +23,7 @@ placaMotores.escribir_voltaje(VALOR_ESCALON);
 
 % 4) Adquirir datos:
 Vs=[]; Ts=[];
-for i=1:1000,
+for i=1:NUMERO_MUESTRAS_A_CAPTURAR,
     [volt, tim] = placaMotores.leer_velocidad();
     Vs=[Vs, volt];
     Ts=[Ts, tim];

@@ -6,7 +6,18 @@ classdef MarsCrimson < handle
     % -------------------------------------------------------------------
         
     methods
-        function [] = conectar(me, serialPortName)
+        function [] = conectar(me)
+            % Conecta a la placa, usando el primer número de puerto serie
+            % disponible en el sistema:
+            lstPorts = me.internal_getAvailableComPort();
+            fprintf('[MarsCrimson] Puertos serie autodetectados: %s\n',lstPorts{:});
+            if (isempty(lstPorts))
+                error('[MarsCrimson] No se encontraron puertos serie COM{i} en el sistema. Prueba a volver a conectar el cable USB de la placa.');
+            end
+            conectarPuerto(me,lstPorts{1});
+        end
+        
+        function [] = conectarPuerto(me, serialPortName)
             fprintf('[MarsCrimson] Abriendo puerto serie: %s...\n', serialPortName);
             me.m_serial = serial(serialPortName);
             fopen(me.m_serial);
@@ -17,7 +28,11 @@ classdef MarsCrimson < handle
         end
         
         function delete(me)
-            fclose(me.m_serial);
+            try
+                fclose(me.m_serial);
+            catch 
+                % ...
+            end
             fprintf('[MarsCrimson] Cerrado.\n');
         end
         
@@ -90,6 +105,54 @@ classdef MarsCrimson < handle
             %HIBYTE Extracts the upper 8-bit
             out = uint8(bitshift(uint16(word_value),-8));
         end        
+        function [lCOM_Port] = internal_getAvailableComPort()
+        % function lCOM_Port = getAvailableComPort()
+        % Return a Cell Array of COM port names available on your computer
+            try
+                s=serial('IMPOSSIBLE_NAME_ON_PORT');fopen(s); 
+            catch
+                lErrMsg = lasterr;
+            end
+
+            %Start of the COM available port
+            lIndex1 = strfind(lErrMsg,'COM');
+            %End of COM available port
+            lIndex2 = strfind(lErrMsg,'Use')-3;
+
+            lComStr = lErrMsg(lIndex1:lIndex2);
+
+            %Parse the resulting string
+            lIndexDot = strfind(lComStr,',');
+
+            % If no Port are available
+            if isempty(lIndex1)
+                lCOM_Port{1}='';
+                return;
+            end
+
+            % If only one Port is available
+            if isempty(lIndexDot)
+                lCOM_Port{1}=lComStr;
+                return;
+            end
+
+            lCOM_Port{1} = lComStr(1:lIndexDot(1)-1);
+
+            for i=1:numel(lIndexDot)+1
+                % First One
+                if (i==1)
+                    lCOM_Port{1,1} = lComStr(1:lIndexDot(i)-1);
+                % Last One
+                elseif (i==numel(lIndexDot)+1)
+                    lCOM_Port{i,1} = lComStr(lIndexDot(i-1)+2:end);       
+                % Others
+                else
+                    lCOM_Port{i,1} = lComStr(lIndexDot(i-1)+2:lIndexDot(i)-1);
+                end
+            end            
+
+        end
+        
     end
     
     methods(Access=private)
@@ -159,7 +222,6 @@ classdef MarsCrimson < handle
         end
         
     end
-    
     
 end
 
