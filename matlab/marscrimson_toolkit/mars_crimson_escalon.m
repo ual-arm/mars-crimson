@@ -2,7 +2,7 @@
 placaMotores = MarsCrimson();
 
 % Conecta con la placa física:
-placaMotores.conectar();
+placaMotores.conectarPuerto('COM5');
 
 VALOR_ESCALON    = 3.3;  % volts
 PERIODO_LECTURA_MS = 1;  % milisecs

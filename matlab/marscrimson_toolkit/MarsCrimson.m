@@ -28,6 +28,10 @@ classdef MarsCrimson < handle
         end
         
         function delete(me)
+            me.close();
+        end
+        
+        function close(me)
             try
                 fclose(me.m_serial);
             catch 
@@ -40,7 +44,7 @@ classdef MarsCrimson < handle
         % voltios, devolviendo el valor actual de velocidad (en voltios, -5 a +5).
         function [out_volt, timestamp] = escribir_voltaje_y_leer(me, volt)
             internal_set_DACs(me, volt, me.h('0x00'));
-            %flushinput(me.m_serial); % Make sure we dont read old values
+            % flushinput(me.m_serial); % Make sure we dont read old values
             [out_volt, timestamp_ms] = internal_read_ADC(me);
             timestamp = timestamp_ms*1e-3;
         end
@@ -70,6 +74,11 @@ classdef MarsCrimson < handle
         % Vea también: iniciar_medicion_continua(), leer_velocidad()
         function [] = parar_medicion_continua(me)
             me.internal_set_cont_mode(0);
+        end
+        
+        % Limpiar buffer de lectura. 
+        function [] = limpiar_buffer(me)
+            flushinput(me.m_serial);
         end
         
     end
